@@ -123,16 +123,38 @@ function calculateWinner(squares) {
   for (let i = 0; i < 20; i++) {
     for (let j = 0; j < 20; j++) {
       if (squares[i][j]) {
-        if ((squares[i][j] && squares[i][j] === squares[i][j + 1] && squares[i][j] === squares[i][j + 2] && squares[i][j] === squares[i][j + 3] && squares[i][j] === squares[i][j + 4])
-          && !(squares[i][j + 5] && squares[i][j + 5] !== squares[i][j] && squares[i][j - 1] && squares[i][j - 1] !== squares[i][j]) ||
-          (squares[i][j] && squares[i][j] === squares[i + 1][j] && squares[i][j] === squares[i + 2][j] && squares[i][j] === squares[i + 3][j] && squares[i][j] === squares[i + 4][j])
-          && !(squares[i + 5][j] && squares[i + 5][j] !== squares[i][j] && squares[i - 1][j] && squares[i - 1][j] !== squares[i][j]) ||
-          (squares[i][j] && squares[i][j] === squares[i + 1][j + 1] && squares[i][j] === squares[i + 2][j + 2] && squares[i][j] === squares[i + 3][j + 3] && squares[i][j] === squares[i + 4][j + 4])
-          && !(squares[i + 5][j + 5] && squares[i + 5][j + 5] !== squares[i][j] && squares[i - 1][j - 1] && squares[i - 1][j - 1] !== squares[i][j]) ||
-          (squares[i][j] && squares[i][j] === squares[i - 1][j + 1] && squares[i][j] === squares[i - 2][j + 2] && squares[i][j] === squares[i - 3][j + 3] && squares[i][j] === squares[i - 4][j + 4])
-          && !(squares[i - 5][j + 5] && squares[i - 5][j + 5] !== squares[i][j] && squares[i + 1][j - 1] && squares[i + 1][j - 1] !== squares[i][j])
-        ) {
-          return squares[i][j];
+        console.log(i);
+        console.log(j);
+        if ((squares[i][j] === squares[i][j + 1] && squares[i][j] === squares[i][j + 2] && squares[i][j] === squares[i][j + 3] && squares[i][j] === squares[i][j + 4])) {
+          if (!(squares[i][j + 5] && squares[i][j + 5] !== squares[i][j] && squares[i][j - 1] && squares[i][j - 1] !== squares[i][j])) {
+            return squares[i][j];//đường ngang
+          }
+        }
+        else if (i<16) {
+          if ((squares[i][j] === squares[i + 1][j] && squares[i][j] === squares[i + 2][j] && squares[i][j] === squares[i + 3][j] && squares[i][j] === squares[i + 4][j])) {
+            if (i > 14 || i < 1) {
+              return squares[i][j];//đường dọc
+            }
+            if (!(squares[i + 5][j] && squares[i + 5][j] !== squares[i][j] && squares[i - 1][j] && squares[i - 1][j] !== squares[i][j])) {
+              return squares[i][j];//đường dọc
+            }
+          }
+          else if ((squares[i][j] === squares[i + 1][j + 1] && squares[i][j] === squares[i + 2][j + 2] && squares[i][j] === squares[i + 3][j + 3] && squares[i][j] === squares[i + 4][j + 4])) {
+            if (i > 14 || i < 1) {
+              return squares[i][j];//đường chéo \
+            }
+            if (!(squares[i + 5][j + 5] && squares[i + 5][j + 5] !== squares[i][j] && squares[i - 1][j - 1] && squares[i - 1][j - 1] !== squares[i][j])) {
+              return squares[i][j];//đường chéo \
+            }
+          }
+          else if ((squares[i][j] === squares[i + 1][j - 1] && squares[i][j] === squares[i + 2][j - 2] && squares[i][j] === squares[i + 3][j - 3] && squares[i][j] === squares[i + 4][j - 4])) {
+            if (i < 5 || i > 18) {
+              return squares[i][j];//đường chéo /
+            }
+            if (!(squares[i - 5][j + 5] && squares[i - 5][j + 5] !== squares[i][j] && squares[i + 1][j - 1] && squares[i + 1][j - 1] !== squares[i][j])) {
+              return squares[i][j];//đường chéo /
+            }
+          }
         }
       }
     }
