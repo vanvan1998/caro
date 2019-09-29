@@ -3,7 +3,12 @@ import './App.css';
 
 function Square(props) {
   return (
-    <button className="square" style={{ color: props.color }} onClick={props.onClick}>
+    <button
+      className="square"
+      type="button"
+      style={{ color: props.color }}
+      onClick={props.onClick}
+    >
       {props.value}
     </button>
   );
@@ -21,19 +26,18 @@ class Board extends React.Component {
   }
 
   render() {
-    let table = []
+    const table = [];
 
     for (let i = 0; i < 20; i++) {
-      let children = []
+      const children = [];
       for (let j = 0; j < 20; j++) {
-        children.push(<div className="board-row">
-          {this.renderSquare(i, j)}
-        </div>)
+        children.push(
+          <div className="board-row">{this.renderSquare(i, j)}</div>
+        );
       }
-      //Create the parent and add the children
-      table.push(<div className="divRow">{children}</div>)
+      table.push(<div className="divRow">{children}</div>);
     }
-    return table
+    return table;
   }
 }
 
@@ -50,7 +54,7 @@ class Game extends React.Component {
       xIsNext: true,
       col: [0],
       row: [0],
-      Sortvalue: "sorted descending"
+      Sortvalue: 'sorted descending'
     };
   }
 
@@ -64,7 +68,7 @@ class Game extends React.Component {
     if (calculateWinner(squares, temp) || squares[i][j]) {
       return;
     }
-    squares[i][j] = this.state.xIsNext ? "X" : "O";
+    squares[i][j] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       history: history.concat([
         {
@@ -74,78 +78,109 @@ class Game extends React.Component {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
       col: col.concat(i + 1),
-      row: row.concat(j + 1),
+      row: row.concat(j + 1)
     });
   }
 
   ColorChange(i, j, winner, temp) {
     if (winner) {
       if (temp[2] === 0 && i === temp[0]) {
-        if (j === temp[1] || j === temp[1] + 1 || j === temp[1] + 2 || j === temp[1] + 3 || j === temp[1] + 4) {
-          return "red";
+        if (
+          j === temp[1] ||
+          j === temp[1] + 1 ||
+          j === temp[1] + 2 ||
+          j === temp[1] + 3 ||
+          j === temp[1] + 4
+        ) {
+          return 'red';
         }
-      }
-      else if (temp[2] === 1 && j === temp[1]) {
-        if (i === temp[0] || i === temp[0] + 1 || i === temp[0] + 2 || i === temp[0] + 3 || i === temp[0] + 4) {
-          return "red";
+      } else if (temp[2] === 1 && j === temp[1]) {
+        if (
+          i === temp[0] ||
+          i === temp[0] + 1 ||
+          i === temp[0] + 2 ||
+          i === temp[0] + 3 ||
+          i === temp[0] + 4
+        ) {
+          return 'red';
         }
-      }
-      else if (temp[2] === 2) {
-        if ((i === temp[0] && j === temp[1]) || (i === temp[0] + 1 && j === temp[1] + 1) || (i === temp[0] + 2 && j === temp[1] + 2) || (i === temp[0] + 3 && j === temp[1] + 3) || (i === temp[0] + 4 && j === temp[1] + 4)) {
-          return "red";
+      } else if (temp[2] === 2) {
+        if (
+          (i === temp[0] && j === temp[1]) ||
+          (i === temp[0] + 1 && j === temp[1] + 1) ||
+          (i === temp[0] + 2 && j === temp[1] + 2) ||
+          (i === temp[0] + 3 && j === temp[1] + 3) ||
+          (i === temp[0] + 4 && j === temp[1] + 4)
+        ) {
+          return 'red';
         }
-      }
-      else if (temp[2] === 3) {
-        if ((i === temp[0] && j === temp[1]) || (i === temp[0] + 1 && j === temp[1] - 1) || (i === temp[0] + 2 && j === temp[1] - 2) || (i === temp[0] + 3 && j === temp[1] - 3) || (i === temp[0] + 4 && j === temp[1] - 4)) {
-          return "red";
+      } else if (temp[2] === 3) {
+        if (
+          (i === temp[0] && j === temp[1]) ||
+          (i === temp[0] + 1 && j === temp[1] - 1) ||
+          (i === temp[0] + 2 && j === temp[1] - 2) ||
+          (i === temp[0] + 3 && j === temp[1] - 3) ||
+          (i === temp[0] + 4 && j === temp[1] - 4)
+        ) {
+          return 'red';
         }
       }
     }
-    return "black";
+    return 'black';
   }
 
   jumpTo(step) {
     this.setState({
       stepNumber: step,
-      xIsNext: (step % 2) === 0
+      xIsNext: step % 2 === 0
     });
   }
 
-  onclickSort(Sortvalue, moves) {
-    if (Sortvalue === "sorted descending") {
-      this.setState({ Sortvalue: "Sort ascending" });
-    }
-    else {
-      this.setState({ Sortvalue: "sorted descending" });
+  onclickSort(Sortvalue) {
+    if (Sortvalue === 'sorted descending') {
+      this.setState({ Sortvalue: 'Sort ascending' });
+    } else {
+      this.setState({ Sortvalue: 'sorted descending' });
     }
   }
 
   render() {
-    const history = this.state.history;
+    const { history } = this.state;
     const current = history[this.state.stepNumber];
-    const temp = [];//temp[0] lưu giá trị i, temp[1] lưu giá trị j, temp[2] lưu giá trị loại đường thắng: 0:|; 1:--; 2:\; 3:/ 
+    const temp = []; // temp[0] lưu giá trị i, temp[1] lưu giá trị j, temp[2] lưu giá trị loại đường thắng: 0:|; 1:--; 2:\; 3:/
     const winner = calculateWinner(current.squares, temp);
-    const Sortvalue = this.state.Sortvalue;
-    //move: danh sách mảng 123456..
+    const { Sortvalue } = this.state;
+    // move: danh sách mảng 123456..
     const moves = history.map((step, move) => {
-      const desc = move ?//desc lưu "go to move ..."
-        `Go to move [${this.state.col[move]}][${this.state.row[move].toString()}]` :
-        'Go to game start';
+      const desc = move // desc lưu "go to move ..."
+        ? `Go to move [${this.state.col[move]}][${this.state.row[
+            move
+          ].toString()}]`
+        : 'Go to game start';
       return (
         <li key={move}>
-          <button style={this.state.stepNumber === move ? { fontWeight: 'bold' } : { fontWeight: 'normal' }}
-            onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button
+            type="button"
+            style={
+              this.state.stepNumber === move
+                ? { fontWeight: 'bold' }
+                : { fontWeight: 'normal' }
+            }
+            onClick={() => this.jumpTo(move)}
+          >
+            {desc}
+          </button>
         </li>
       );
     });
-    if (Sortvalue === "Sort ascending") {
+    if (Sortvalue === 'Sort ascending') {
       moves.reverse();
     }
     let status;
     if (winner) {
-      status = "Winner: " + winner;
+      status = `Winner: ${winner}`;
     } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
     }
 
     return (
@@ -158,9 +193,13 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div >{status}</div>
-          <br></br>
-          <button className="buttonSort" onClick={this.onclickSort.bind(this, Sortvalue, moves)}>
+          <div>{status}</div>
+          <br />
+          <button
+            type="button"
+            className="buttonSort"
+            onClick={this.onclickSort.bind(this, Sortvalue)}
+          >
             {Sortvalue}
           </button>
           <ol>{moves}</ol>
@@ -175,55 +214,100 @@ function calculateWinner(squares, temp) {
   for (let i = 0; i < 20; i++) {
     for (let j = 0; j < 20; j++) {
       if (squares[i][j]) {
-        if ((squares[i][j] === squares[i][j + 1] && squares[i][j] === squares[i][j + 2] && squares[i][j] === squares[i][j + 3] && squares[i][j] === squares[i][j + 4])) {
-          if (!(squares[i][j + 5] && squares[i][j + 5] !== squares[i][j] && squares[i][j - 1] && squares[i][j - 1] !== squares[i][j])) {
+        if (
+          squares[i][j] === squares[i][j + 1] &&
+          squares[i][j] === squares[i][j + 2] &&
+          squares[i][j] === squares[i][j + 3] &&
+          squares[i][j] === squares[i][j + 4]
+        ) {
+          if (
+            !(
+              squares[i][j + 5] &&
+              squares[i][j + 5] !== squares[i][j] &&
+              squares[i][j - 1] &&
+              squares[i][j - 1] !== squares[i][j]
+            )
+          ) {
             temp[0] = i;
             temp[1] = j;
             temp[2] = 0;
-            return squares[i][j];//đường ngang
+            return squares[i][j]; // đường ngang
           }
-        }
-        else if (i < 16) {
-          if ((squares[i][j] === squares[i + 1][j] && squares[i][j] === squares[i + 2][j] && squares[i][j] === squares[i + 3][j] && squares[i][j] === squares[i + 4][j])) {
+        } else if (i < 16) {
+          if (
+            squares[i][j] === squares[i + 1][j] &&
+            squares[i][j] === squares[i + 2][j] &&
+            squares[i][j] === squares[i + 3][j] &&
+            squares[i][j] === squares[i + 4][j]
+          ) {
             if (i > 14 || i < 1) {
               temp[0] = i;
               temp[1] = j;
               temp[2] = 1;
-              return squares[i][j];//đường dọc
+              return squares[i][j]; // đường dọc
             }
-            if (!(squares[i + 5][j] && squares[i + 5][j] !== squares[i][j] && squares[i - 1][j] && squares[i - 1][j] !== squares[i][j])) {
+            if (
+              !(
+                squares[i + 5][j] &&
+                squares[i + 5][j] !== squares[i][j] &&
+                squares[i - 1][j] &&
+                squares[i - 1][j] !== squares[i][j]
+              )
+            ) {
               temp[0] = i;
               temp[1] = j;
               temp[2] = 1;
-              return squares[i][j];//đường dọc
+              return squares[i][j]; // đường dọc
             }
-          }
-          else if ((squares[i][j] === squares[i + 1][j + 1] && squares[i][j] === squares[i + 2][j + 2] && squares[i][j] === squares[i + 3][j + 3] && squares[i][j] === squares[i + 4][j + 4])) {
+          } else if (
+            squares[i][j] === squares[i + 1][j + 1] &&
+            squares[i][j] === squares[i + 2][j + 2] &&
+            squares[i][j] === squares[i + 3][j + 3] &&
+            squares[i][j] === squares[i + 4][j + 4]
+          ) {
             if (i > 14 || i < 1) {
               temp[0] = i;
               temp[1] = j;
               temp[2] = 2;
-              return squares[i][j];//đường chéo \
+              return squares[i][j]; // đường chéo \
             }
-            if (!(squares[i + 5][j + 5] && squares[i + 5][j + 5] !== squares[i][j] && squares[i - 1][j - 1] && squares[i - 1][j - 1] !== squares[i][j])) {
+            if (
+              !(
+                squares[i + 5][j + 5] &&
+                squares[i + 5][j + 5] !== squares[i][j] &&
+                squares[i - 1][j - 1] &&
+                squares[i - 1][j - 1] !== squares[i][j]
+              )
+            ) {
               temp[0] = i;
               temp[1] = j;
               temp[2] = 2;
-              return squares[i][j];//đường chéo \
+              return squares[i][j]; // đường chéo \
             }
-          }
-          else if ((squares[i][j] === squares[i + 1][j - 1] && squares[i][j] === squares[i + 2][j - 2] && squares[i][j] === squares[i + 3][j - 3] && squares[i][j] === squares[i + 4][j - 4])) {
+          } else if (
+            squares[i][j] === squares[i + 1][j - 1] &&
+            squares[i][j] === squares[i + 2][j - 2] &&
+            squares[i][j] === squares[i + 3][j - 3] &&
+            squares[i][j] === squares[i + 4][j - 4]
+          ) {
             if (i < 5 || i > 18) {
               temp[0] = i;
               temp[1] = j;
               temp[2] = 3;
-              return squares[i][j];//đường chéo /
+              return squares[i][j]; // đường chéo /
             }
-            if (!(squares[i - 5][j + 5] && squares[i - 5][j + 5] !== squares[i][j] && squares[i + 1][j - 1] && squares[i + 1][j - 1] !== squares[i][j])) {
+            if (
+              !(
+                squares[i - 5][j + 5] &&
+                squares[i - 5][j + 5] !== squares[i][j] &&
+                squares[i + 1][j - 1] &&
+                squares[i + 1][j - 1] !== squares[i][j]
+              )
+            ) {
               temp[0] = i;
               temp[1] = j;
               temp[2] = 3;
-              return squares[i][j];//đường chéo /
+              return squares[i][j]; // đường chéo /
             }
           }
         }
@@ -232,7 +316,5 @@ function calculateWinner(squares, temp) {
   }
   return null;
 }
-
-
 
 export default Game;
