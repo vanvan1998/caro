@@ -126,7 +126,6 @@ class Board extends React.Component {
     const prs = this.props;
     return (
       <Square
-        key={j}
         value={prs.squares[i][j]}
         color={prs.color(i, j)}
         onClick={() => prs.onClick(i, j)}
