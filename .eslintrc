@@ -8,7 +8,6 @@
         "extensions": [".js", ".jsx"]
       }
     ],
-    "max-classes-per-file":0,
     "react/prop-types": 0,
     "no-underscore-dangle": 0,
     "import/imports-first": [2, "absolute-first"],
