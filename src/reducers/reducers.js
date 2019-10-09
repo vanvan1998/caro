@@ -19,11 +19,11 @@ const initialState = {
   color: 'black'
 };
 
-function calculateWinner(squares, temp, state) {
+function calculateWinner(squares, state) {
   const st = { ...state };
   st.winner = false;
-  for (let i = 0; i < 20; i++) {
-    for (let j = 0; j < 20; j++) {
+  for (let i = 0; i < 20; i += 1) {
+    for (let j = 0; j < 20; j += 1) {
       if (squares[i][j]) {
         if (
           squares[i][j] === squares[i][j + 1] &&
@@ -39,11 +39,11 @@ function calculateWinner(squares, temp, state) {
               squares[i][j - 1] !== squares[i][j]
             )
           ) {
-            temp[0] = i;
-            temp[1] = j;
+            st.temp[0] = i;
+            st.temp[1] = j;
             for (let m = 2; m < 9; m += 2) {
-              temp[m] = i;
-              temp[m + 1] = j + m / 2;
+              st.temp[m] = i;
+              st.temp[m + 1] = j + m / 2;
             }
             st.winner = squares[i][j];
             return st; // đường ngang
@@ -56,11 +56,11 @@ function calculateWinner(squares, temp, state) {
             squares[i][j] === squares[i + 4][j]
           ) {
             if (i > 14 || i < 1) {
-              temp[0] = i;
-              temp[1] = j;
+              st.temp[0] = i;
+              st.temp[1] = j;
               for (let m = 2; m < 9; m += 2) {
-                temp[m] = i + m / 2;
-                temp[m + 1] = j;
+                st.temp[m] = i + m / 2;
+                st.temp[m + 1] = j;
               }
               st.winner = squares[i][j];
               return st; // đường dọc
@@ -73,11 +73,11 @@ function calculateWinner(squares, temp, state) {
                 squares[i - 1][j] !== squares[i][j]
               )
             ) {
-              temp[0] = i;
-              temp[1] = j;
+              st.temp[0] = i;
+              st.temp[1] = j;
               for (let m = 2; m < 9; m += 2) {
-                temp[m] = i + m / 2;
-                temp[m + 1] = j;
+                st.temp[m] = i + m / 2;
+                st.temp[m + 1] = j;
               }
               st.winner = squares[i][j];
               return st; // đường dọc
@@ -89,11 +89,11 @@ function calculateWinner(squares, temp, state) {
             squares[i][j] === squares[i + 4][j + 4]
           ) {
             if (i > 14 || i < 1) {
-              temp[0] = i;
-              temp[1] = j;
+              st.temp[0] = i;
+              st.temp[1] = j;
               for (let m = 2; m < 9; m += 2) {
-                temp[m] = i + m / 2;
-                temp[m + 1] = j + m / 2;
+                st.temp[m] = i + m / 2;
+                st.temp[m + 1] = j + m / 2;
               }
               st.winner = squares[i][j];
               return st; // đường chéo \
@@ -106,11 +106,11 @@ function calculateWinner(squares, temp, state) {
                 squares[i - 1][j - 1] !== squares[i][j]
               )
             ) {
-              temp[0] = i;
-              temp[1] = j;
+              st.temp[0] = i;
+              st.temp[1] = j;
               for (let m = 2; m < 9; m += 2) {
-                temp[m] = i + m / 2;
-                temp[m + 1] = j + m / 2;
+                st.temp[m] = i + m / 2;
+                st.temp[m + 1] = j + m / 2;
               }
               st.winner = squares[i][j];
               return st; // đường chéo \
@@ -122,11 +122,11 @@ function calculateWinner(squares, temp, state) {
             squares[i][j] === squares[i + 4][j - 4]
           ) {
             if (i < 5 || i > 18) {
-              temp[0] = i;
-              temp[1] = j;
+              st.temp[0] = i;
+              st.temp[1] = j;
               for (let m = 2; m < 9; m += 2) {
-                temp[m] = i + m / 2;
-                temp[m + 1] = j - m / 2;
+                st.temp[m] = i + m / 2;
+                st.temp[m + 1] = j - m / 2;
               }
               st.winner = squares[i][j];
               return st; // đường chéo /
@@ -139,11 +139,11 @@ function calculateWinner(squares, temp, state) {
                 squares[i + 1][j - 1] !== squares[i][j]
               )
             ) {
-              temp[0] = i;
-              temp[1] = j;
+              st.temp[0] = i;
+              st.temp[1] = j;
               for (let m = 2; m < 9; m += 2) {
-                temp[m] = i + m / 2;
-                temp[m + 1] = j - m / 2;
+                st.temp[m] = i + m / 2;
+                st.temp[m + 1] = j - m / 2;
               }
               st.winner = squares[i][j];
               return st; // đường chéo /
@@ -163,7 +163,7 @@ function handleClick(i, j, state) {
   const row = st.row.slice(0, st.stepNumber + 1);
   const current = historytemp[historytemp.length - 1];
   const squares = JSON.parse(JSON.stringify(current.squares));
-  const sttemp = calculateWinner(squares, st.temp, state);
+  const sttemp = calculateWinner(squares, st);
   if (sttemp.winner || squares[i][j]) {
     return st;
   }
@@ -172,7 +172,7 @@ function handleClick(i, j, state) {
 
   st.history = historytemp.concat([
     {
-      squares: squares
+      squares
     }
   ]);
   st.stepNumber = historytemp.length;
@@ -209,7 +209,7 @@ const myReducer = (state = initialState, action) => {
       return jumpTo(action.data.step, state);
     }
     case types.checkWinner: {
-      return calculateWinner(action.data.squares, state.temp, state);
+      return calculateWinner(action.data.squares, state);
     }
     case types.sortClick: {
       return onclickSort(state.Sortvalue, state);

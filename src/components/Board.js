@@ -29,9 +29,9 @@ class Board extends React.Component {
   render() {
     const table = [];
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i += 1) {
       const children = [];
-      for (let j = 0; j < 20; j++) {
+      for (let j = 0; j < 20; j += 1) {
         children.push(
           <div key={j} className="board-row">
             {this.renderSquare(i, j)}

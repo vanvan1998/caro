@@ -1,9 +1,8 @@
-/* eslint-disable import/imports-first */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
-import './index.css';
 import { Provider } from 'react-redux';
+import './index.css';
 import myReducer from './reducers/reducers';
 import Container from './containers/containers';
 import * as serviceWorker from './serviceWorker';
