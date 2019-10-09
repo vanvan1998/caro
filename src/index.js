@@ -5,13 +5,13 @@ import { createStore } from 'redux';
 import './index.css';
 import { Provider } from 'react-redux';
 import myReducer from './reducers/reducers';
-import Game from './components/Game';
+import Container from './containers/containers';
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(myReducer);
 ReactDOM.render(
   <Provider store={store}>
-    <Game />
+    <Container />
   </Provider>,
   document.getElementById('root')
 );

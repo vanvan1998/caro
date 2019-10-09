@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import '../App.css';
 import Board from './Board';
-import * as actions from '../actions/actions';
 
 class Game extends React.Component {
   render() {
@@ -78,36 +76,4 @@ class Game extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    history: state.history,
-    stepNumber: state.stepNumber,
-    xIsNext: state.xIsNext,
-    col: state.col,
-    row: state.row,
-    Sortvalue: state.Sortvalue,
-    temp: state.temp,
-    winner: state.winner
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    handleClick: (i, j) => {
-      dispatch(actions.boardClick(i, j));
-    },
-    jumpTo: step => {
-      dispatch(actions.goToMoveClick(step));
-    },
-    sortClick: () => {
-      dispatch(actions.sortClick());
-    },
-    calculateWinner: squares => {
-      dispatch(actions.checkWinner(squares));
-    }
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Game);
+export default Game;
