@@ -87,8 +87,7 @@ const mapStateToProps = state => {
     row: state.row,
     Sortvalue: state.Sortvalue,
     temp: state.temp,
-    winner: state.winner,
-    color: state.color
+    winner: state.winner
   };
 };
 
@@ -99,9 +98,6 @@ const mapDispatchToProps = dispatch => {
     },
     jumpTo: step => {
       dispatch(actions.goToMoveClick(step));
-    },
-    ColorChange: (i, j) => {
-      dispatch(actions.corlorChange(i, j));
     },
     sortClick: () => {
       dispatch(actions.sortClick());

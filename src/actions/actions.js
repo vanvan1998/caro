@@ -14,13 +14,6 @@ export const boardClick = (i, j) => {
   };
 };
 
-export const corlorChange = (i, j) => {
-  return {
-    type: types.colorChange,
-    data: { i, j }
-  };
-};
-
 export const goToMoveClick = step => {
   return {
     type: types.goToMoveClick,

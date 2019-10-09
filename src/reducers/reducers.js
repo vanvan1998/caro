@@ -182,21 +182,6 @@ function handleClick(i, j, state) {
   return st;
 }
 
-function ColorChange(i, j, state) {
-  console.log(state.color);
-  const st = { ...state };
-  st.color = 'black';
-  if (st.winner) {
-    for (let m = 0; m < 9; m += 2) {
-      if (i === st.temp[m] && j === st.temp[m + 1]) {
-        st.color = 'red';
-        return st;
-      }
-    }
-  }
-  return st;
-}
-
 function jumpTo(step, state) {
   const st = { ...state };
 
@@ -222,9 +207,6 @@ const myReducer = (state = initialState, action) => {
     }
     case types.goToMoveClick: {
       return jumpTo(action.data.step, state);
-    }
-    case types.colorChange: {
-      return ColorChange(action.data.i, action.data.j, state);
     }
     case types.checkWinner: {
       return calculateWinner(action.data.squares, state.temp, state);
