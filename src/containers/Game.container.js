@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 import Game from '../components/Game';
-//import App from '../components/Router';
+// import App from '../components/Router';
 
 const mapStateToProps = state => {
   return {
