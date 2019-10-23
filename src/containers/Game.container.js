@@ -1,18 +1,20 @@
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 import Game from '../components/Game';
-// import App from '../components/Router';
 
 const mapStateToProps = state => {
+  const GameState = state.GameReducer;
   return {
-    history: state.history,
-    stepNumber: state.stepNumber,
-    xIsNext: state.xIsNext,
-    col: state.col,
-    row: state.row,
-    Sortvalue: state.Sortvalue,
-    temp: state.temp,
-    winner: state.winner
+    history: GameState.history,
+    stepNumber: GameState.stepNumber,
+    xIsNext: GameState.xIsNext,
+    col: GameState.col,
+    row: GameState.row,
+    Sortvalue: GameState.Sortvalue,
+    temp: GameState.temp,
+    winner: GameState.winner,
+    username: state.LoginReducer.username,
+    token: state.LoginReducer.token
   };
 };
 
@@ -29,6 +31,9 @@ const mapDispatchToProps = dispatch => {
     },
     calculateWinner: squares => {
       dispatch(actions.checkWinner(squares));
+    },
+    Logout: () => {
+      dispatch(actions.LogOut());
     }
   };
 };

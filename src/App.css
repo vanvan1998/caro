@@ -1,28 +1,29 @@
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
+  font: 14px 'Century Gothic', Futura, sans-serif;
   margin: 20px;
 }
 
-ol, ul {
+ol,
+ul {
   padding-left: 30px;
 }
 
-.buttonRed{
+.buttonRed {
   color: red;
 }
 
-.divRow{
+.divRow {
   display: block;
   margin-top: -4px;
 }
 
 .board-row:after {
   clear: both;
-  content: "";
+  content: '';
   display: table;
 }
 
-div{
+div {
   display: inline-block;
 }
 .status {
@@ -52,7 +53,7 @@ div{
   background: #ddd;
 }
 
-.buttonSort{
+.buttonSort {
   margin-left: 23px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -69,6 +70,46 @@ div{
   margin-left: 120px;
 }
 
-.loginLayout{
-  margin-left: 500px;
+.loginLayout {
+  margin-left: 550px;
+}
+
+.paper {
+  margin-top: 70px;
+  display: 'flex';
+  flex-direction: 'column';
+  align-items: 'center';
+}
+.avatar {
+  margin: 10px 0px 10px 0px;
+}
+.form {
+  width: '100%';
+  margin-top: 10px;
+}
+.Remember {
+  margin: 5px 0px 5px;
+}
+
+.footer-login {
+  margin-top: 20px;
+}
+
+.LockOutlinedIcon {
+  color: rgb(248, 48, 75);
+}
+
+.Error {
+  color: red;
+  margin: 0px 100px 40px 0px;
+}
+
+.GridForm {
+  width: 500px;
+  height: 40px;
+  margin: 30px 0px 30px 0px;
+}
+
+.Username{
+  color: rgb(112, 23, 38);
 }

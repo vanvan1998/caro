@@ -1,10 +1,18 @@
 import React from 'react';
 import '../App.css';
+import { Redirect } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import Board from './Board';
 
 class Game extends React.Component {
   render() {
     const st = this.props;
+    if (st.token === 'err') {
+      return <Redirect to="/login" />;
+    }
+    if (st.token === '') {
+      return <Redirect to="/login" />;
+    }
     const history = st.history.slice(0, st.stepNumber + 1);
     const current = history[st.stepNumber];
     // temp[0] lưu giá trị i, temp[1] lưu giá trị j, temp[2] lưu giá trị loại đường thắng: 0:|; 1:--; 2:\; 3:/
@@ -39,7 +47,7 @@ class Game extends React.Component {
     if (winner) {
       status = `Winner: ${winner}`;
     } else {
-      status = `Next player: ${st.xIsNext ? 'X' : 'O'}`;
+      status = `Next step: ${st.xIsNext ? 'X' : 'O'}`;
     }
     return (
       <div className="game">
@@ -60,7 +68,24 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div className="Username">
+            <h2>Người chơi : {st.username}</h2>
+          </div>
+          <br />
+          <div>
+            <h4>{status}</h4>
+          </div>
+          <br />
+          <center>
+            <Button
+              variant="contained"
+              color="primary"
+              type="button"
+              onClick={() => st.Logout()}
+            >
+              Đăng xuất
+            </Button>
+          </center>
           <br />
           <button
             type="button"
