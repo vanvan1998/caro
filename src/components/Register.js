@@ -17,12 +17,16 @@ export default class SignUp extends React.PureComponent {
     this.email = '';
     this.password = '';
     this.name = '';
+    this.err = '';
   }
 
   render() {
     const st = this.props;
     if (st.isRegister) {
       return <Redirect to="/login" />;
+    }
+    if (st.CheckLoadRegister) {
+      this.err = 'Có lỗi xảy ra, vui lòng thử lại!!!';
     }
     return (
       <div className="loginLayout">
@@ -84,6 +88,7 @@ export default class SignUp extends React.PureComponent {
                   />
                 </Grid>
               </Grid>
+              <div className="ErrorRegister">{this.err}</div>
               <div className="GridForm">
                 <Button
                   fullWidth

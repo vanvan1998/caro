@@ -8,7 +8,8 @@ const mapStateToProps = state => {
     email: RegisterState.email,
     password: RegisterState.password,
     isRegister: RegisterState.isRegister,
-    name: RegisterState.name
+    name: RegisterState.name,
+    CheckLoadRegister: RegisterState.CheckLoadRegister
   };
 };
 
