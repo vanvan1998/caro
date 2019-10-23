@@ -1,10 +1,12 @@
 // import { combineReducers } from 'redux';
 import { combineReducers } from 'redux';
 import GameReducer from './Game.Reducers';
-import LoginReducer from './Login.Reducer';
+import LoginReducer from './Login.Reducers';
+import RegisterReducer from './Register.Reducers';
 
 const myReducer = combineReducers({
   GameReducer,
-  LoginReducer
+  LoginReducer,
+  RegisterReducer
 });
 export default myReducer;

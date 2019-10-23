@@ -79,7 +79,7 @@ export const register = (name, email, password, res) => {
 export const registerRequest = (name, email, password) => {
   return dispatch => {
     return OnclickRegister(name, email, password).then(res => {
-      dispatch(register(email, password, res));
+      dispatch(register(name, email, password, res));
     });
   };
 };

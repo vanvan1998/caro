@@ -9,9 +9,21 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import '../App.css';
+import { Redirect } from 'react-router-dom';
 
 export default class SignUp extends React.PureComponent {
+  constructor() {
+    super();
+    this.email = '';
+    this.password = '';
+    this.name = '';
+  }
+
   render() {
+    const st = this.props;
+    if (st.isRegister) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="loginLayout">
         <Container component="main" maxWidth="xs">
@@ -27,27 +39,19 @@ export default class SignUp extends React.PureComponent {
             </center>
             <form className="form" noValidate>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
-                    autoComplete="fname"
-                    name="firstName"
+                    autoComplete="name"
+                    name="Name"
                     variant="outlined"
                     required
                     fullWidth
-                    id="firstName"
-                    label="First Name"
+                    id="Name"
+                    onChange={event => {
+                      this.name = event.target.value;
+                    }}
+                    label="Full Name"
                     autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="lname"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -56,6 +60,9 @@ export default class SignUp extends React.PureComponent {
                     required
                     fullWidth
                     id="email"
+                    onChange={event => {
+                      this.email = event.target.value;
+                    }}
                     label="Email Address"
                     name="email"
                     autoComplete="email"
@@ -66,6 +73,9 @@ export default class SignUp extends React.PureComponent {
                     variant="outlined"
                     required
                     fullWidth
+                    onChange={event => {
+                      this.password = event.target.value;
+                    }}
                     name="password"
                     label="Password"
                     type="password"
@@ -75,7 +85,15 @@ export default class SignUp extends React.PureComponent {
                 </Grid>
               </Grid>
               <div className="GridForm">
-                <Button fullWidth variant="contained" color="primary">
+                <Button
+                  fullWidth
+                  onClick={event => {
+                    event.preventDefault();
+                    st.Register(this.name, this.email, this.password);
+                  }}
+                  variant="contained"
+                  color="primary"
+                >
                   Sign Up
                 </Button>
               </div>
