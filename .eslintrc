@@ -12,6 +12,9 @@
     "prettier/prettier": 2,
     "react/no-array-index-key":0
   },
+  "engines": {
+    "node": "12.13.0"
+  },
   "globals": {
     "window": true,
     "document": true,
