@@ -24,7 +24,7 @@ export default class SignIn extends React.Component {
   render() {
     const st = this.props;
     if (st.isLogin) {
-      return <Redirect to="/" />;
+      return <Redirect to="/"/>;
     }
     if (st.token === 'err') {
       this.err = 'Email hoặc mật khẩu không đúng!!!';
