@@ -7,15 +7,15 @@ import Board from './board';
 class Game extends React.Component {
   render() {
     const st = this.props;
-    // if (st.token === 'err') {
-    //   return <Redirect to="/login" />;
-    // }
-    // if (st.token === '') {
-    //   return <Redirect to="/login" />;
-    // }
-    // if (st.isInfo) {
-    //   return <Redirect to="/info" />;
-    // }
+    if (st.token === 'err') {
+      return <Redirect to="/login" />;
+    }
+    if (st.token === '') {
+      return <Redirect to="/login" />;
+    }
+    if (st.isInfo) {
+      return <Redirect to="/info" />;
+    }
     const history = st.history.slice(0, st.stepNumber + 1);
     const current = history[st.stepNumber];
     // temp[0] lưu giá trị i, temp[1] lưu giá trị j, temp[2] lưu giá trị loại đường thắng: 0:|; 1:--; 2:\; 3:/
