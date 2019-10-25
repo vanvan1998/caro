@@ -11,3 +11,5 @@ export const register = 'REGISTER';
 export const login = 'LOGIN';
 
 export const logOut = 'LOGOUT';
+
+export const info = 'INFO';

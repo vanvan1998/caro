@@ -5,18 +5,26 @@ import Register from '../components/register';
 const mapStateToProps = state => {
   const RegisterState = state.RegisterReducer;
   return {
-    email: RegisterState.email,
+    username: RegisterState.username,
     password: RegisterState.password,
     isRegister: RegisterState.isRegister,
-    name: RegisterState.name,
     CheckLoadRegister: RegisterState.CheckLoadRegister
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    Register: (name, email, password) => {
-      dispatch(actions.registerRequest(name, email, password));
+    Register: (username, name, email, dateOfBirth, sex, password) => {
+      dispatch(
+        actions.registerRequest(
+          username,
+          name,
+          email,
+          dateOfBirth,
+          sex,
+          password
+        )
+      );
     }
   };
 };

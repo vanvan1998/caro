@@ -29,10 +29,10 @@ export const sortClick = () => {
   };
 };
 
-function OnclickLogin(email, password) {
+function OnclickLogin(username, password) {
   const res = axios
     .post('https://restful1612800.herokuapp.com/users/login', {
-      email,
+      username,
       password
     })
     .catch(error => {
@@ -41,26 +41,29 @@ function OnclickLogin(email, password) {
   return res;
 }
 
-export const login = (email, password, res) => {
+export const login = (username, password, res) => {
   return {
     type: types.login,
-    data: { email, password, res }
+    data: { username, password, res }
   };
 };
 
-export const loginRequest = (email, password) => {
+export const loginRequest = (username, password) => {
   return dispatch => {
-    return OnclickLogin(email, password).then(res => {
-      dispatch(login(email, password, res));
+    return OnclickLogin(username, password).then(res => {
+      dispatch(login(username, password, res));
     });
   };
 };
 
-function OnclickRegister(name, email, password) {
+function OnclickRegister(username, name, email, dateOfBirth, sex, password) {
   const res = axios
     .post('https://restful1612800.herokuapp.com/users/register', {
+      username,
       name,
       email,
+      dateOfBirth,
+      sex,
       password
     })
     .catch(error => {
@@ -69,17 +72,41 @@ function OnclickRegister(name, email, password) {
   return res;
 }
 
-export const register = (name, email, password, res) => {
+export const register = (
+  username,
+  name,
+  email,
+  dateOfBirth,
+  sex,
+  password,
+  res
+) => {
   return {
     type: types.register,
-    data: { name, email, password, res }
+    data: { username, name, email, dateOfBirth, sex, password, res }
   };
 };
 
-export const registerRequest = (name, email, password) => {
+export const registerRequest = (
+  username,
+  name,
+  email,
+  dateOfBirth,
+  sex,
+  password
+) => {
   return dispatch => {
-    return OnclickRegister(name, email, password).then(res => {
-      dispatch(register(name, email, password, res));
+    return OnclickRegister(
+      username,
+      name,
+      email,
+      dateOfBirth,
+      sex,
+      password
+    ).then(res => {
+      dispatch(
+        register(username, name, email, dateOfBirth, sex, password, res)
+      );
     });
   };
 };
@@ -87,5 +114,11 @@ export const registerRequest = (name, email, password) => {
 export const LogOut = () => {
   return {
     type: types.logOut
+  };
+};
+
+export const Info = () => {
+  return {
+    type: types.info
   };
 };

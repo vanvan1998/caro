@@ -4,6 +4,7 @@ import Game from '../components/game';
 
 const mapStateToProps = state => {
   const GameState = state.GameReducer;
+  const InfoState = state.LoginReducer;
   return {
     history: GameState.history,
     stepNumber: GameState.stepNumber,
@@ -13,8 +14,11 @@ const mapStateToProps = state => {
     Sortvalue: GameState.Sortvalue,
     temp: GameState.temp,
     winner: GameState.winner,
-    username: state.LoginReducer.username,
-    token: state.LoginReducer.token
+    name: state.LoginReducer.name,
+    token: state.LoginReducer.token,
+    username: InfoState.username,
+    password: InfoState.password,
+    isInfo: GameState.isInfo
   };
 };
 
@@ -34,6 +38,12 @@ const mapDispatchToProps = dispatch => {
     },
     Logout: () => {
       dispatch(actions.LogOut());
+    },
+    Info: () => {
+      dispatch(actions.Info());
+    },
+    Login: (username, password) => {
+      dispatch(actions.loginRequest(username, password));
     }
   };
 };

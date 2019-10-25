@@ -1,25 +1,28 @@
 import * as types from '../constants/constants';
 
-// const axios = require('axios');
-
 const initialState = {
-  email: '',
+  username: '',
   password: '',
   isLogin: false,
   token: '',
-  username: ''
+  name: '',
+  email: '',
+  dateOfBirth: '',
+  sex: ''
 };
 
 const LoginReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.login: {
       const st = { ...state };
-      st.email = action.data.email;
+      st.username = action.data.username;
       st.password = action.data.password;
       try {
         st.token = action.data.res.data.token;
-        st.username = action.data.res.data.user.name;
-        console.log(st);
+        st.name = action.data.res.data.user.name;
+        st.email = action.data.res.data.user.email;
+        st.dateOfBirth = action.data.res.data.user.dateOfBirth;
+        st.sex = action.data.res.data.user.sex;
         st.isLogin = true;
       } catch (err) {
         st.token = 'err';
@@ -31,8 +34,10 @@ const LoginReducer = (state = initialState, action) => {
       st.username = '';
       st.token = '';
       st.isLogin = false;
-      st.email = '';
+      st.name = '';
       st.password = '';
+      st.dateOfBirth = '';
+      st.sex = '';
       return st;
     }
     default:

@@ -13,6 +13,9 @@ class Game extends React.Component {
     if (st.token === '') {
       return <Redirect to="/login" />;
     }
+    if (st.isInfo) {
+      return <Redirect to="/info" />;
+    }
     const history = st.history.slice(0, st.stepNumber + 1);
     const current = history[st.stepNumber];
     // temp[0] lưu giá trị i, temp[1] lưu giá trị j, temp[2] lưu giá trị loại đường thắng: 0:|; 1:--; 2:\; 3:/
@@ -69,7 +72,17 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div className="Username">
-            <h2>Người chơi : {st.username}</h2>
+            Người chơi :{' '}
+            <Button
+              type="button"
+              onClick={event => {
+                event.preventDefault();
+                st.Login(st.username, st.password);
+                st.Info();
+              }}
+            >
+              <h3>{st.name}</h3>
+            </Button>
           </div>
           <br />
           <div>

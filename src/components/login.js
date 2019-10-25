@@ -1,5 +1,4 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import '../App.css';
@@ -16,7 +15,7 @@ import { Redirect } from 'react-router-dom';
 export default class SignIn extends React.Component {
   constructor() {
     super();
-    this.email = '';
+    this.username = '';
     this.password = '';
     this.err = '';
   }
@@ -24,10 +23,10 @@ export default class SignIn extends React.Component {
   render() {
     const st = this.props;
     if (st.isLogin) {
-      return <Redirect to="/"/>;
+      return <Redirect to="/" />;
     }
     if (st.token === 'err') {
-      this.err = 'Email hoặc mật khẩu không đúng!!!';
+      this.err = 'Username hoặc mật khẩu không đúng!!!';
     }
 
     return (
@@ -36,9 +35,7 @@ export default class SignIn extends React.Component {
           <CssBaseline />
           <div className="paper">
             <center>
-              <Avatar className="avatar">
-                <LockOutlinedIcon className="LockOutlinedIcon" />
-              </Avatar>
+              <LockRoundedIcon className="Icon" style={{ fontSize: 40 }} />
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
@@ -50,12 +47,12 @@ export default class SignIn extends React.Component {
                 required
                 fullWidth
                 onChange={event => {
-                  this.email = event.target.value;
+                  this.username = event.target.value;
                 }}
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
                 autoFocus
               />
               <TextField
@@ -84,7 +81,8 @@ export default class SignIn extends React.Component {
                 color="primary"
                 onClick={event => {
                   event.preventDefault();
-                  st.Login(this.email, this.password);
+                  st.Login(this.username, this.password);
+                  return <Redirect to="/info" />;
                 }}
               >
                 Sign In

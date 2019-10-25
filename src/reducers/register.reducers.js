@@ -1,18 +1,17 @@
 import * as types from '../constants/constants';
 
 const initialState = {
-  email: '',
+  username: '',
   password: '',
   isRegister: false,
-  CheckLoadRegister: false,
-  name: ''
+  CheckLoadRegister: false
 };
 
 const RegisterReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.register: {
       const st = { ...state };
-      st.email = action.data.email;
+      st.username = action.data.username;
       st.password = action.data.password;
       try {
         st.name = action.data.res.data.name;

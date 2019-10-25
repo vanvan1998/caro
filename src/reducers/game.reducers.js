@@ -16,7 +16,8 @@ const initialState = {
   Sortvalue: 'sorted descending',
   temp: [],
   winner: false,
-  color: 'black'
+  color: 'black',
+  isInfo: false
 };
 
 function calculateWinner(squares, state) {
@@ -213,6 +214,11 @@ const GameReducer = (state = initialState, action) => {
     }
     case types.sortClick: {
       return onclickSort(state.Sortvalue, state);
+    }
+    case types.info: {
+      const st = { ...state };
+      st.isInfo = true;
+      return st;
     }
     default:
       return state;

@@ -5,7 +5,7 @@ import Login from '../components/login';
 const mapStateToProps = state => {
   const LoginState = state.LoginReducer;
   return {
-    email: LoginState.email,
+    username: LoginState.username,
     password: LoginState.password,
     isLogin: LoginState.isLogin,
     token: LoginState.token
@@ -14,8 +14,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    Login: (email, password) => {
-      dispatch(actions.loginRequest(email, password));
+    Login: (username, password) => {
+      dispatch(actions.loginRequest(username, password));
     }
   };
 };

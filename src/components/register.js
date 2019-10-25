@@ -1,11 +1,10 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockRoundedIcon from '@material-ui/icons/LockRounded';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import '../App.css';
@@ -14,9 +13,12 @@ import { Redirect } from 'react-router-dom';
 export default class SignUp extends React.PureComponent {
   constructor() {
     super();
-    this.email = '';
-    this.password = '';
+    this.username = '';
     this.name = '';
+    this.email = '';
+    this.dateOfBirth = '';
+    this.sex = '';
+    this.password = '';
     this.err = '';
   }
 
@@ -34,9 +36,7 @@ export default class SignUp extends React.PureComponent {
           <CssBaseline />
           <div className="paper">
             <center>
-              <Avatar className="avatar">
-                <LockOutlinedIcon />
-              </Avatar>
+              <LockRoundedIcon className="Icon" style={{ fontSize: 40 }} />
               <Typography component="h1" variant="h5">
                 Sign up
               </Typography>
@@ -58,10 +58,49 @@ export default class SignUp extends React.PureComponent {
                     autoFocus
                   />
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="DateOfBirth"
+                    label="Date Of Birth"
+                    onChange={event => {
+                      this.dateOfBirth = event.target.value;
+                    }}
+                    name="DateOfBirth"
+                    autoComplete="DateOfBirth"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="sex"
+                    label="Sex"
+                    onChange={event => {
+                      this.sex = event.target.value;
+                    }}
+                    name="sex"
+                    autoComplete="sex"
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
                     required
+                    fullWidth
+                    id="username"
+                    onChange={event => {
+                      this.username = event.target.value;
+                    }}
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
                     fullWidth
                     id="email"
                     onChange={event => {
@@ -94,7 +133,14 @@ export default class SignUp extends React.PureComponent {
                   fullWidth
                   onClick={event => {
                     event.preventDefault();
-                    st.Register(this.name, this.email, this.password);
+                    st.Register(
+                      this.username,
+                      this.name,
+                      this.email,
+                      this.dateOfBirth,
+                      this.sex,
+                      this.password
+                    );
                   }}
                   variant="contained"
                   color="primary"
